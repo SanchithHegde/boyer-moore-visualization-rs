@@ -1,0 +1,16 @@
+[package]
+authors = ["Sanchith Hegde <sanchith.hegde01@gmail.com>"]
+edition = "2018"
+name    = "boyer_moore"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow    = "1.0.31"
+log       = "0.4.8"
+simplelog = "0.8.0"
+termcolor = "1.1.0"
+
+[dev-dependencies]
+pretty_assertions = "0.6.1"
