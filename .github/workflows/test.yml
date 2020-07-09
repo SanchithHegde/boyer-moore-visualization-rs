@@ -1,0 +1,23 @@
+name: CI Test
+
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        rust: [stable]
+
+    steps:
+    - uses: hecrj/setup-rust-action@v1.3.3
+      with:
+        rust-version: ${{ matrix.rust }}
+    - uses: actions/checkout@master
+    - name: Run tests
+      run: cargo test --locked -- --nocapture
+    - name: Check formatting
+      run: |
+          rustup component add rustfmt
+          cargo fmt -- --check
