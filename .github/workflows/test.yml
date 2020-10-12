@@ -11,7 +11,7 @@ jobs:
         rust: [stable]
 
     steps:
-    - uses: hecrj/setup-rust-action@v1.3.3
+    - uses: hecrj/setup-rust-action@v1.3.4
       with:
         rust-version: ${{ matrix.rust }}
     - uses: actions/checkout@v2.3.3
