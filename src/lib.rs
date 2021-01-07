@@ -294,7 +294,6 @@ impl BoyerMoore {
     /// ```rust
     /// use boyer_moore::BoyerMoore;
     /// # use anyhow::Result;
-    /// # use pretty_assertions::assert_eq;
     ///
     /// # fn main() -> Result<()> {
     /// let bm = BoyerMoore::new("ACTGTC", "ACGT")?;
@@ -328,7 +327,6 @@ impl BoyerMoore {
     /// ```rust
     /// use boyer_moore::BoyerMoore;
     /// # use anyhow::Result;
-    /// # use pretty_assertions::assert_eq;
     ///
     /// # fn main() -> Result<()> {
     /// let bm = BoyerMoore::new("ACTGTC", "ACGT")?;
@@ -361,7 +359,6 @@ impl BoyerMoore {
     /// ```rust
     /// use boyer_moore::BoyerMoore;
     /// # use anyhow::Result;
-    /// # use pretty_assertions::assert_eq;
     ///
     /// # fn main() -> Result<()> {
     /// let bm = BoyerMoore::new("CATGTC", "ACGT")?;

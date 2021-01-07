@@ -1,6 +1,5 @@
 use anyhow::Result;
 use boyer_moore::BoyerMoore;
-use pretty_assertions::assert_eq;
 
 const ALPHABET: &str = "ACGT";
 
