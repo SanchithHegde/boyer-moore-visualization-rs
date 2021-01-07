@@ -183,7 +183,6 @@ fn main() {
     )
     .map_err(|err| {
         println!("Failed to initialize logger: {}", err);
-        return;
     })
     .unwrap();
 
@@ -198,14 +197,12 @@ fn main() {
         .flush()
         .map_err(|err| {
             error!("Failed to flush stdout: {}", err);
-            return;
         })
         .unwrap();
     io::stdin()
         .read_line(&mut text)
         .map_err(|err| {
             error!("Failed to read input from stdin: {}", err);
-            return;
         })
         .unwrap();
     let text = text.trim();
@@ -216,14 +213,12 @@ fn main() {
         .flush()
         .map_err(|err| {
             error!("Failed to flush stdout: {}", err);
-            return;
         })
         .unwrap();
     io::stdin()
         .read_line(&mut pattern)
         .map_err(|err| {
             error!("Failed to read input from stdin: {}", err);
-            return;
         })
         .unwrap();
     let pattern = pattern.trim();

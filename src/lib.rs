@@ -15,7 +15,7 @@ fn z_array(string: &str) -> Result<Vec<usize>> {
     let len = string.len();
     ensure!(len > 1, "Length of string must be greater than 1");
 
-    let mut z_arr = vec![0 as usize; len];
+    let mut z_arr = vec![0_usize; len];
     z_arr[0] = len;
 
     let chars = string.as_bytes();
@@ -92,8 +92,8 @@ fn big_l_prime_array(pattern: &str, n_arr: &[usize]) -> Vec<usize> {
     let len = pattern.len();
     let mut l_prime = vec![0; len];
 
-    for j in 0..len - 1 {
-        let i = len - n_arr[j];
+    for (j, &n_j) in n_arr.iter().enumerate() {
+        let i = len - n_j;
         if i < len {
             l_prime[i] = j + 1;
         }
@@ -167,11 +167,9 @@ fn dense_bad_char_table(
     alpha_map: &HashMap<char, usize>,
 ) -> Result<Vec<Vec<usize>>> {
     let mut table: Vec<Vec<usize>> = Vec::new();
-    let mut next = vec![0 as usize; alpha_map.len()];
-    let chars = pattern.as_bytes();
+    let mut next = vec![0_usize; alpha_map.len()];
 
-    for i in 0..pattern.len() {
-        let character = chars[i] as char;
+    for (i, character) in pattern.chars().enumerate() {
         ensure!(
             alpha_map.contains_key(&character),
             format!("{} not found in alphabet", character)
