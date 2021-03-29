@@ -180,6 +180,7 @@ fn main() {
         LevelFilter::Info,
         ConfigBuilder::new().set_time_to_local(true).build(),
         TerminalMode::Mixed,
+        ColorChoice::Auto,
     )
     .map_err(|err| {
         println!("Failed to initialize logger: {}", err);
