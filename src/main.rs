@@ -1,7 +1,6 @@
 use anyhow::{Context, Result};
 use boyer_moore::BoyerMoore;
 use log::error;
-use simplelog::{ConfigBuilder, LevelFilter, TermLogger, TerminalMode};
 use std::{
     io::{self, Write},
     iter::repeat,
@@ -176,16 +175,7 @@ fn boyer_moore_search(
 
 fn main() {
     let mut stdout = StandardStream::stdout(ColorChoice::Auto);
-    TermLogger::init(
-        LevelFilter::Info,
-        ConfigBuilder::new().set_time_to_local(true).build(),
-        TerminalMode::Mixed,
-        ColorChoice::Auto,
-    )
-    .map_err(|err| {
-        println!("Failed to initialize logger: {}", err);
-    })
-    .unwrap();
+    env_logger::init();
 
     const ALPHABET: &str = "abcdefghijklmnoprstuvwxyz ";
 

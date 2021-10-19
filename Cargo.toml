@@ -1,5 +1,5 @@
 [package]
-authors = ["Sanchith Hegde <sanchith.hegde01@gmail.com>"]
+authors = [ "Sanchith Hegde <sanchith.hegde01@gmail.com>" ]
 edition = "2018"
 name    = "boyer_moore"
 version = "0.1.0"
@@ -7,11 +7,13 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow    = "1.0.44"
-log       = "0.4.14"
-simplelog = "0.10.2"
-termcolor = "1.1.2"
+anyhow     = "1.0.44"
+env_logger = "0.9.0"
+log        = "0.4.14"
+termcolor  = "1.1.2"
 
 [profile.release]
 codegen-units = 1
-lto = "fat"
+lto           = "fat"
+
+[features]
