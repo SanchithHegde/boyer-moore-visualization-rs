@@ -1,13 +1,14 @@
-use anyhow::{Context, Result};
-use boyer_moore::BoyerMoore;
-use log::error;
 use std::{
     io::{self, Write},
-    iter::repeat,
     str::from_utf8,
     thread, time,
 };
+
+use anyhow::{Context, Result};
+use log::error;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
+
+use boyer_moore::BoyerMoore;
 
 /// Prints text and pattern with appropriate colors.
 fn visualize(
@@ -31,15 +32,9 @@ fn visualize(
             stdout.reset()?;
             writeln!(&mut stdout, "{}", &text[t_off + pattern.len()..])?;
 
-            write!(
-                &mut stdout,
-                "{}{}",
-                repeat(" ").take(t_off).collect::<String>(),
-                &pattern[..i],
-            )?;
+            write!(&mut stdout, "{}{}", " ".repeat(t_off), &pattern[..i],)?;
             stdout.set_color(spec.set_bold(true).set_fg(Some(Color::Green)))?;
             writeln!(&mut stdout, "{}", &pattern[i..])?;
-            stdout.reset()?;
         } else {
             write!(&mut stdout, "{}", &text[..t_off + p_off])?;
             stdout.set_color(spec.set_bold(true).set_fg(Some(Color::Red)))?;
@@ -49,32 +44,21 @@ fn visualize(
             stdout.reset()?;
             writeln!(&mut stdout, "{}", &text[t_off + pattern.len()..])?;
 
-            write!(
-                &mut stdout,
-                "{}{}",
-                repeat(" ").take(t_off).collect::<String>(),
-                &pattern[..p_off],
-            )?;
+            write!(&mut stdout, "{}{}", " ".repeat(t_off), &pattern[..p_off],)?;
             stdout.set_color(spec.set_bold(true).set_fg(Some(Color::Red)))?;
             write!(&mut stdout, "{}", &pattern[p_off..p_off + 1])?;
             stdout.set_color(spec.set_bold(true).set_fg(Some(Color::Green)))?;
             writeln!(&mut stdout, "{}", &pattern[p_off + 1..])?;
-            stdout.reset()?;
         }
+        stdout.reset()?;
 
-        write!(
-            &mut stdout,
-            "{}",
-            repeat(" ").take(t_off + i).collect::<String>(),
-        )?;
+        write!(&mut stdout, "{}", " ".repeat(t_off + i),)?;
         stdout.set_color(spec.set_bold(true).set_fg(Some(Color::Rgb(127, 127, 127))))?;
         writeln!(
             &mut stdout,
             "{}{}",
             ARROW_HEAD,
-            repeat(ARROW_BODY)
-                .take(pattern.len() - i - 1)
-                .collect::<String>(),
+            ARROW_BODY.repeat(pattern.len() - i - 1),
         )?;
         stdout.reset()?;
 
