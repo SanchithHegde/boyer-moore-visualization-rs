@@ -118,8 +118,8 @@ fn boyer_moore_search(
 
         visualize(
             stdout,
-            from_utf8(text).unwrap(),
-            from_utf8(pattern).unwrap(),
+            from_utf8(text)?,
+            from_utf8(pattern)?,
             i,
             mismatch_index,
             !mismatched,
@@ -157,7 +157,7 @@ fn boyer_moore_search(
     Ok((occurrences, alignments, comparisons))
 }
 
-fn main() {
+fn run() -> Result<()> {
     let mut stdout = StandardStream::stdout(ColorChoice::Auto);
     env_logger::init();
 
@@ -168,39 +168,22 @@ fn main() {
 
     let mut text = String::new();
     print!("Enter text    : ");
-    stdout
-        .flush()
-        .map_err(|err| {
-            error!("Failed to flush stdout: {}", err);
-        })
-        .unwrap();
+    stdout.flush().with_context(|| "Failed to flush stdout")?;
     io::stdin()
         .read_line(&mut text)
-        .map_err(|err| {
-            error!("Failed to read input from stdin: {}", err);
-        })
-        .unwrap();
+        .with_context(|| "Failed to read input from stdin")?;
     let text = text.trim();
 
     let mut pattern = String::new();
     print!("Enter pattern : ");
-    stdout
-        .flush()
-        .map_err(|err| {
-            error!("Failed to flush stdout: {}", err);
-        })
-        .unwrap();
+    stdout.flush().with_context(|| "Failed to flush stdout")?;
     io::stdin()
         .read_line(&mut pattern)
-        .map_err(|err| {
-            error!("Failed to read input from stdin: {}", err);
-        })
-        .unwrap();
+        .with_context(|| "Failed to read input from stdin")?;
     let pattern = pattern.trim();
 
     let bm = BoyerMoore::new(pattern, ALPHABET)
-        .map_err(|err| error!("Failed to initialize Boyer-Moore object: {}", err))
-        .unwrap();
+        .with_context(|| "Failed to initialize Boyer-Moore object")?;
     println!();
 
     match boyer_moore_search(pattern, bm, text, SLEEP_TIME, &mut stdout) {
@@ -216,6 +199,17 @@ fn main() {
             for source in err.chain() {
                 error!("{}", source);
             }
+        }
+    }
+
+    Ok(())
+}
+
+fn main() {
+    if let Err(err) = run() {
+        error!("{}", err);
+        for err in err.chain().skip(1) {
+            error!("Caused by: {}", err);
         }
     }
 }
