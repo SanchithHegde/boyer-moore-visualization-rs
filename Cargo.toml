@@ -1,6 +1,6 @@
 [package]
 authors = [ "Sanchith Hegde <sanchith.hegde01@gmail.com>" ]
-edition = "2018"
+edition = "2021"
 name    = "boyer_moore"
 version = "0.1.0"
 
