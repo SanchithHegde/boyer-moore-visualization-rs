@@ -2,13 +2,16 @@ name: security audit
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   audit:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: hecrj/setup-rust-action@v1.3.4
+        with:
+          rust-version: stable
       - uses: actions/checkout@v2.3.5
       - uses: actions-rs/audit-check@v1.2.0
         with:
