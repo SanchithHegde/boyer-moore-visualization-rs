@@ -9,7 +9,7 @@ version = "0.1.0"
 [dependencies]
 anyhow     = "1.0.56"
 env_logger = "0.9.0"
-log        = "0.4.14"
+log        = "0.4.16"
 termcolor  = "1.1.3"
 
 [profile.release]
